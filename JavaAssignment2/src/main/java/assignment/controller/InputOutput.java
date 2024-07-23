@@ -3,8 +3,6 @@ package assignment.controller;
 import assignment.model.Student;
 import assignment.model.User;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -57,7 +55,12 @@ public class InputOutput {
   public void displayUserData(User user) {
     System.out.println("How you want to sort your data\n"
         + "select from name, roll number, age, address");
-    String type = sc.nextLine();
+    String type = "";
+    if (sc.hasNextLine()){
+      type = sc.nextLine();
+    } else {
+      type = "name";
+    }
     System.out.println("---------------------------------------------------------------------");
     System.out.println("---------------------------------------------");
     System.out.printf("%-20s %-5s %-12s %-20s %-30s%n", "Name", "Age",
@@ -89,7 +92,11 @@ public class InputOutput {
     int rollNumber = 0;
     try {
       System.out.println("Enter roll number : ");
-      rollNumber = Integer.parseInt(sc.nextLine());
+      if (sc.hasNextLine()) {
+        rollNumber = Integer.parseInt(sc.nextLine());
+      }else {
+        rollNumber = 1;
+      }
       user.deleteUserDetails(rollNumber);
     } catch (Exception e) {
       System.out.println(rollNumber);

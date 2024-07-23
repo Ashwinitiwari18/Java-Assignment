@@ -1,9 +1,15 @@
 package assignment.model;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+@Getter
+@Setter
+@Accessors(chain = true)
 
 public class Student implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -32,50 +38,5 @@ public class Student implements Serializable {
     address = "";
     rollNumber = 0;
     courses = new HashSet<>();
-  }
-
-  public String getFullName() {
-    return fullName;
-  }
-
-  public int getAge() {
-    return age;
-  }
-
-  public String getAddress() {
-    return address;
-  }
-
-  public int getRollNumber() {
-    return rollNumber;
-  }
-
-  public Student setFullName(String fullName) {
-    this.fullName = fullName;
-    return this;
-  }
-
-  public Set<String> getCourses() {
-    return courses;
-  }
-
-  public Student setAge(int age) {
-    this.age = age;
-    return this;
-  }
-
-  public Student setAddress(String address) {
-    this.address = address;
-    return this;
-  }
-
-  public Student setRollNumber(int rollNumber) {
-    this.rollNumber = rollNumber;
-    return this;
-  }
-
-  public Student setCourses(Set<String> courses) {
-    this.courses = courses;
-    return this;
   }
 }

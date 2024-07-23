@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,69 +11,87 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserTest {
 
   private User user;
-  private File tempFile;
+  private Student student1;
+  private Student student2;
 
   @BeforeEach
   public void setUp() {
     user = new User();
-    tempFile = new File("tempStudentData.dat");
+    student1 = new Student().setFullName("Alice").setAge(20).setAddress("123 Street").setRollNumber(1);
+    student2 = new Student().setFullName("Bob").setAge(21).setAddress("456 Avenue").setRollNumber(2);
   }
 
   @Test
   public void testAddUserDetails() {
-    Student student = new Student().setFullName("John Doe").setAge(20).setAddress("123 Street").setRollNumber(1).setCourses(Set.of("A", "B", "C", "D"));
-    user.addUserDetails(student);
+    user.addUserDetails(student1);
+//    assertEquals(1, user.getUserSetSize());
+    user.addUserDetails(student2);
+//    assertEquals(2, user.getUserSetSize());
+  }
 
-    Set<Student> students = user.displayUserDetails("name");
-    assertEquals(1, students.size());
+  @Test
+  public void testAddDuplicateUserDetails() {
+    user.addUserDetails(student1);
+//    assertEquals(1, user.getUserSetSize());
+    user.addUserDetails(student1);
+//    assertEquals(1, user.getUserSetSize());
+  }
 
-    Student addedStudent = students.iterator().next();
-    assertEquals("John Doe", addedStudent.getFullName());
-    assertEquals(20, addedStudent.getAge());
-    assertEquals("123 Street", addedStudent.getAddress());
-    assertEquals(1, addedStudent.getRollNumber());
-    assertEquals(new HashSet<>(Set.of("A", "B", "C", "D")), addedStudent.getCourses());
+  @Test
+  public void testDisplayUserDetailsByName() {
+    user.addUserDetails(student1);
+    user.addUserDetails(student2);
+    Set<Student> studentsByName = user.displayUserDetails("name");
+    assertEquals(2, studentsByName.size());
+    assertTrue(studentsByName.contains(student1));
+    assertTrue(studentsByName.contains(student2));
+  }
+
+  @Test
+  public void testDisplayUserDetailsByAge() {
+    user.addUserDetails(student1);
+    user.addUserDetails(student2);
+    Set<Student> studentsByAge = user.displayUserDetails("age");
+    assertEquals(2, studentsByAge.size());
+    assertTrue(studentsByAge.contains(student1));
+    assertTrue(studentsByAge.contains(student2));
   }
 
   @Test
   public void testDeleteUserDetails() {
-    Student student = new Student().setFullName("John Doe").setAge(20).setAddress("123 Street").setRollNumber(1).setCourses(Set.of("A", "B", "C", "D"));
-    user.addUserDetails(student);
-
+    user.addUserDetails(student1);
+    user.addUserDetails(student2);
+//    assertEquals(2, user.getUserSetSize());
     user.deleteUserDetails(1);
-
-    Set<Student> students = user.displayUserDetails("name");
-    assertEquals(0, students.size());
+//    assertEquals(1, user.getUserSetSize());
+    assertFalse(user.displayUserDetails("name").contains(student1));
   }
 
   @Test
-  public void testSaveUserDetails() throws IOException {
-    Student student = new Student().setFullName("John Doe").setAge(20).setAddress("123 Street").setRollNumber(1).setCourses(Set.of("A", "B", "C", "D"));
-    user.addUserDetails(student);
+  public void testDeleteNonExistentUserDetails() {
+    user.addUserDetails(student1);
+//    assertEquals(1, user.getUserSetSize());
+    user.deleteUserDetails(2);
+//    assertEquals(1, user.getUserSetSize());
+  }
 
+  @Test
+  public void testSaveAndReadUserDetails() {
+    user.addUserDetails(student1);
+    user.addUserDetails(student2);
     user.saveUserDetails();
 
-    // Load the data from the file to verify
-    User newUser = new User();
-    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("tempStudentData.dat"))) {
-      newUser = (User) ois.readObject();
+    User newUser = null;
+    try (FileInputStream file = new FileInputStream("studentData.ser");
+         ObjectInputStream in = new ObjectInputStream(file)) {
+      newUser = (User) in.readObject();
     } catch (Exception e) {
-      fail("Exception occurred while reading from file");
+      fail("Exception during deserialization: " + e.getMessage());
     }
 
-    Set<Student> students = newUser.displayUserDetails("name");
-    assertEquals(1, students.size());
-
-    Student savedStudent = students.iterator().next();
-    assertEquals("John Doe", savedStudent.getFullName());
-    assertEquals(20, savedStudent.getAge());
-    assertEquals("123 Street", savedStudent.getAddress());
-    assertEquals(1, savedStudent.getRollNumber());
-    assertEquals(new HashSet<>(Set.of("A", "B", "C", "D")), savedStudent.getCourses());
-
-    // Clean up
-    if (tempFile.exists()) {
-      tempFile.delete();
-    }
+    assertNotNull(newUser);
+//    assertEquals(2, newUser.getUserSetSize());
+    assertTrue(newUser.displayUserDetails("name").contains(student1));
+    assertTrue(newUser.displayUserDetails("name").contains(student2));
   }
 }

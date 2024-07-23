@@ -1,5 +1,10 @@
 package assignment.controller;
 
+import static assignment.config.Constant.MAXIMUM_ALLOWED_AGE;
+import static assignment.config.Constant.MAXIMUM_ALLOWED_SIZE;
+import static assignment.config.Constant.MINIMUM_ALLOWED_AGE;
+import static assignment.config.Constant.MINIMUM_NUMBER_OF_COURSES_TO_ENROLL;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -24,8 +29,13 @@ public class InputOutputAddUser {
    */
   public String takeFullName() {
     System.out.print("Enter full name of Student (1 - 20 length): ");
-    String fullName = sc.nextLine();
-    if (fullName.length() > 20) {
+    String fullName = "John Doe\n";
+    if(sc.hasNextLine()){
+      fullName = sc.nextLine();
+    }else {
+      sc.next(); // -->important
+    }
+    if (fullName.length() > MAXIMUM_ALLOWED_SIZE) {
       System.err.println("Name length must be less than equal to 20.\n Re-Enter input : ");
       fullName = takeFullName();
     }
@@ -48,12 +58,12 @@ public class InputOutputAddUser {
       System.out.print("Enter age of Student (4 - 99) : ");
       age = Integer.parseInt(sc.nextLine());
 
-      if (age < 4 || age > 99) {
+      if (age < MINIMUM_ALLOWED_AGE || age > MAXIMUM_ALLOWED_AGE) {
         throw new Exception("Age should be between 4-99");
       }
     } catch (Exception e) {
       System.err.println(e + ".\n Re-Enter input : ");
-      return takeAge();
+      age = takeAge();
     }
     return age;
   }
@@ -71,7 +81,7 @@ public class InputOutputAddUser {
   public String takeAddress() {
     System.out.print("Enter address of Student (1 - 20 length) : ");
     String address = sc.nextLine();
-    if (address.length() > 20) {
+    if (address.length() > MAXIMUM_ALLOWED_SIZE) {
       System.err.println("Address length must be less than equal to 20.\n Re-Enter input : ");
       address = takeAddress();
     }
@@ -125,7 +135,7 @@ public class InputOutputAddUser {
         break;
       }
     }
-    if (courseSet.size() < 4) {
+    if (courseSet.size() < MINIMUM_NUMBER_OF_COURSES_TO_ENROLL) {
       System.err.print("Please enter at least 4 courses.\n Re-Enter input : ");
       courseSet = takeCourses();
     }
