@@ -61,7 +61,7 @@ public class GraphOperations {
       System.out.println("Parent child relationship between "
           + "these two node has been deleted successfully");
     } else {
-      System.err.println("There is no parent-child relationship between these two node");
+      System.out.println("There is no parent-child relationship between these two node");
     }
   }
 

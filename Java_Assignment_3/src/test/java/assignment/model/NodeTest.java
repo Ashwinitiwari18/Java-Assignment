@@ -30,8 +30,9 @@ public class NodeTest {
 
   @Test
   public void testRemoveChild(){
-    node.addChild(new Node());
-    node.removeChild(new Node());
+    Node child = new Node();
+    node.addChild(child);
+    node.removeChild(child);
     assertEquals(0,node.getChildren().size());
   }
 
