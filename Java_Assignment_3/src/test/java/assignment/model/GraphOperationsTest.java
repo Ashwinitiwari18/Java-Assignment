@@ -49,9 +49,9 @@ public class GraphOperationsTest {
 
   @Test
   public void TestGetRelationChild(){
-    operations.getRelations(node,Node::getChildren,"Parents");
+    operations.getRelations(node,Node::getChildren,"Children");
     String actual = outputStream.toString().trim();
-    String expected = "Parents of node one (1) :\r\nName of node three (3) :";
+    String expected = "Children of node one (1) :\r\nName of node three (3) :";
     assertEquals(expected,actual);
   }
 
@@ -82,6 +82,7 @@ public class GraphOperationsTest {
     assertEquals(expected,actual);
   }
 
+  @Test
   public void TestDeleteNode(){
     operations.deleteANode(node);
     assertEquals(0,node.getParents().size());

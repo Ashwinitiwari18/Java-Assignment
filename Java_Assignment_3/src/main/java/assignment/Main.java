@@ -12,7 +12,7 @@ public class Main {
   public static void main(String[] args) {
     MenuOption menuOption = new MenuOption();
     while (true) {
-      menuOption.callInputOutput(menuOption.showMenu());
+      menuOption.showMenu();
     }
   }
 }

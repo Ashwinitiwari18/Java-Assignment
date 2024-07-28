@@ -127,6 +127,8 @@ public class GraphOperations {
       System.out.println("If we add this edge then cycle will form.");
       parent.removeChild(child);
       child.removeParent(parent);
+    } else {
+      System.out.println("New Dependency added");
     }
   }
 }
