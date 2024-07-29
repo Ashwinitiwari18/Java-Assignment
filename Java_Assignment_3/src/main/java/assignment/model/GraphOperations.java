@@ -98,8 +98,7 @@ public class GraphOperations {
     while (!queue.isEmpty()) {
       Node currentNode = queue.poll();
       for (Node temp : currentNode.getChildren()) {
-        if (child.getId()==temp.getId()) {
-          System.out.println(child.getId());
+        if (child.getId() == temp.getId()) {
           return true;
         }
 
