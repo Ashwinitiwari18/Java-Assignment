@@ -90,27 +90,26 @@ public class GraphOperations {
    * @param child  the child node
    * @return true if a cycle is present, false otherwise
    */
-  private boolean isCyclePresent(Node parent,Node child) {
+  private boolean isCyclePresent(Node parent, Node child) {
     Queue<Node> queue = new LinkedList<>();
     Set<Integer> visited = new HashSet<>();
-    boolean isCycle = false;
     queue.add(parent);
     visited.add(parent.getId());
     while (!queue.isEmpty()) {
       Node currentNode = queue.poll();
       for (Node temp : currentNode.getChildren()) {
-        if (visited.contains(temp.getId())) {
-          isCycle = true;
-          break;
+        if (child.getId()==temp.getId()) {
+          System.out.println(child.getId());
+          return true;
         }
-        visited.add(temp.getId());
-        queue.add(temp);
-      }
-      if (isCycle) {
-        break;
+
+        if (!visited.contains(temp.getId())) {
+          visited.add(temp.getId());
+          queue.add(temp);
+        }
       }
     }
-    return isCycle;
+    return false;
   }
 
   /**
@@ -123,7 +122,7 @@ public class GraphOperations {
   public void addNewDependency(Node parent, Node child) {
     parent.addChild(child);
     child.addParent(parent);
-    if (isCyclePresent(parent,child)) {
+    if (isCyclePresent(child,parent)) {
       System.out.println("If we add this edge then cycle will form.");
       parent.removeChild(child);
       child.removeParent(parent);
