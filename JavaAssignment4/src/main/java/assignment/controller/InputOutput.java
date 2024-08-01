@@ -42,6 +42,7 @@ public class InputOutput {
 
     Item item = null;
     try {
+      System.out.println("Inside Try");
       if (!arg[0].equalsIgnoreCase("-name")) {
         throw new InvalidException("First Argument must be name");
       }
@@ -64,6 +65,7 @@ public class InputOutput {
       if (!isPresent.containsKey("-price")) {
         isPresent.put("-price", "0");
       }
+      System.out.println("After for");
       if (isPresent.containsKey("-type")) {
         String name = isPresent.get("-name");
         String itemType = isPresent.get("-type");
@@ -83,6 +85,7 @@ public class InputOutput {
           throw new InvalidException("Item type is not as expected required");
         }
       } else {
+        System.out.println("Inside");
         throw new InvalidException("Item type not Found");
       }
     } catch (InvalidException e) {

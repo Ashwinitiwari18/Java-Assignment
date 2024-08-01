@@ -19,10 +19,7 @@ public class Main {
     ArrayList<Item> items = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     do {
-      Item item = null;
-      if (args.length > 0) {
-        item = inOut.input(args);
-      }
+      Item item = inOut.input(args);
       if (item != null) {
         items.add(item);
       }
