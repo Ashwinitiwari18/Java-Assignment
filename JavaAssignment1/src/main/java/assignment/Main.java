@@ -19,6 +19,7 @@ public class Main {
     ArrayList<Item> items = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     do {
+      // change in assignment 1
       Item item = null;
       if (args.length > 0) {
         item = inOut.input(args);
