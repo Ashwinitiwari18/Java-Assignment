@@ -88,8 +88,7 @@ public class InputOutput {
    * needs to be deleted. It then calls the `deleteUserDetails` method on the User object
    * to remove the student with the specified roll number.
    * </p>
-   *
-   * @param user The User object from which the student data will be deleted.
+   * @param user The User object from which the student data will be deleted
    */
   public void deleteUserData(User user) {
     int rollNumber = 0;
