@@ -3,8 +3,8 @@ package assignment.controller;
 import assignment.model.Student;
 import assignment.model.User;
 
+import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class InputOutput {
   Scanner sc;
@@ -56,16 +56,19 @@ public class InputOutput {
     System.out.println("How you want to sort your data\n"
         + "select from name, roll number, age, address");
     String type = "";
-    if (sc.hasNextLine()){
+    if (sc.hasNextLine()) {
       type = sc.nextLine();
     } else {
       type = "name";
     }
+    System.out.println("For ascending -> 1\nFor descending -> 2");
+    String inAscendingOrDescending = sc.nextLine();
+
     System.out.println("---------------------------------------------------------------------");
     System.out.println("---------------------------------------------");
     System.out.printf("%-20s %-5s %-12s %-20s %-30s%n", "Name", "Age",
         "Roll Number", "Address", "Courses");
-    Set<Student> sortedStudent = user.displayUserDetails(type);
+    List<Student> sortedStudent = user.displayUserDetails(type,inAscendingOrDescending);
     for (Student student : sortedStudent) {
       System.out.printf("%-20s %-5d %-12d %-20s [ ", student.getFullName(),
           student.getAge(), student.getRollNumber(), student.getAddress());
@@ -94,7 +97,7 @@ public class InputOutput {
       System.out.println("Enter roll number : ");
       if (sc.hasNextLine()) {
         rollNumber = Integer.parseInt(sc.nextLine());
-      }else {
+      } else {
         rollNumber = 1;
       }
       user.deleteUserDetails(rollNumber);

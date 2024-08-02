@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -100,7 +103,7 @@ public class User implements Serializable {
    *             Valid values are "name", "roll number", "age", and "address".
    * @return A sorted set of {@link Student} objects based on the specified type.
    */
-  public Set<Student> displayUserDetails(String type) {
+  public List<Student> displayUserDetails(String type,String inAscendingOrDescending) {
     Set<Student> students = new TreeSet<>();
     boolean flag = true;
     switch (type) {
@@ -123,7 +126,11 @@ public class User implements Serializable {
     if (flag && users != null) {
       students.addAll(users);
     }
-    return students;
+    List<Student> studentList = new ArrayList<>(students);
+    if (inAscendingOrDescending.equals("2")) {
+      Collections.reverse(studentList);
+    }
+    return studentList;
   }
 
   /**
