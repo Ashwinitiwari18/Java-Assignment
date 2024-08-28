@@ -30,9 +30,9 @@ public class InputOutputAddUser {
   public String takeFullName() {
     System.out.print("Enter full name of Student (1 - 20 length): ");
     String fullName = "John Doe\n";
-    if(sc.hasNextLine()){
+    if (sc.hasNextLine()) {
       fullName = sc.nextLine();
-    }else {
+    } else {
       sc.next(); // -->important
     }
     if (fullName.length() > MAXIMUM_ALLOWED_SIZE) {

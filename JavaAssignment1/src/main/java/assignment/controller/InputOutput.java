@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InputOutput {
+public class InputOutput implements InputeOutput {
 
   /**
    * Processes the input arguments to create an Item object.
@@ -30,6 +30,7 @@ public class InputOutput {
    *                            (raw, manufactured, imported).
    *                          - The item type is missing.
    */
+  @Override
   public Item input(String[] arg) {
 
     Map<String, String> isPresent = new HashMap<>();
@@ -42,7 +43,6 @@ public class InputOutput {
 
     Item item = null;
     try {
-      System.out.println("Inside Try");
       if (!arg[0].equalsIgnoreCase("-name")) {
         throw new InvalidException("First Argument must be name");
       }
@@ -65,7 +65,6 @@ public class InputOutput {
       if (!isPresent.containsKey("-price")) {
         isPresent.put("-price", "0");
       }
-      System.out.println("After for");
       if (isPresent.containsKey("-type")) {
         String name = isPresent.get("-name");
         String itemType = isPresent.get("-type");
@@ -85,7 +84,6 @@ public class InputOutput {
           throw new InvalidException("Item type is not as expected required");
         }
       } else {
-        System.out.println("Inside");
         throw new InvalidException("Item type not Found");
       }
     } catch (InvalidException e) {
@@ -103,6 +101,7 @@ public class InputOutput {
    *              Each item's details including name, price, type, quantity, tax, and final price
    *              will be printed.
    */
+  @Override
   public void output(ArrayList<Item> items) {
     System.out.println("Here are your items: ");
     for (Item item : items) {

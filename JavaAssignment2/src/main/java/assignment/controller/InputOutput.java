@@ -3,10 +3,10 @@ package assignment.controller;
 import assignment.model.Student;
 import assignment.model.User;
 
+import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
-public class InputOutput {
+public class InputOutput implements InputOutputInterface{
   Scanner sc;
 
   public InputOutput() {
@@ -25,6 +25,7 @@ public class InputOutput {
    *
    * @param user The {@link User} object to which the new student will be added.
    */
+  @Override
   public void addStudent(User user) {
     try {
       InputOutputAddUser addUser = new InputOutputAddUser();
@@ -52,20 +53,24 @@ public class InputOutput {
    *
    * @param user The User object containing the student data to be displayed.
    */
+  @Override
   public void displayUserData(User user) {
     System.out.println("How you want to sort your data\n"
         + "select from name, roll number, age, address");
     String type = "";
-    if (sc.hasNextLine()){
+    if (sc.hasNextLine()) {
       type = sc.nextLine();
     } else {
       type = "name";
     }
+    System.out.println("For ascending -> 1\nFor descending -> 2");
+    String inAscendingOrDescending = sc.nextLine();
+
     System.out.println("---------------------------------------------------------------------");
     System.out.println("---------------------------------------------");
     System.out.printf("%-20s %-5s %-12s %-20s %-30s%n", "Name", "Age",
         "Roll Number", "Address", "Courses");
-    Set<Student> sortedStudent = user.displayUserDetails(type);
+    List<Student> sortedStudent = user.displayUserDetails(type,inAscendingOrDescending);
     for (Student student : sortedStudent) {
       System.out.printf("%-20s %-5d %-12d %-20s [ ", student.getFullName(),
           student.getAge(), student.getRollNumber(), student.getAddress());
@@ -85,16 +90,17 @@ public class InputOutput {
    * needs to be deleted. It then calls the `deleteUserDetails` method on the User object
    * to remove the student with the specified roll number.
    * </p>
-   *
-   * @param user The User object from which the student data will be deleted.
+   * @param user The User object from which the student data will be deleted
    */
+
+  @Override
   public void deleteUserData(User user) {
     int rollNumber = 0;
     try {
       System.out.println("Enter roll number : ");
       if (sc.hasNextLine()) {
         rollNumber = Integer.parseInt(sc.nextLine());
-      }else {
+      } else {
         rollNumber = 1;
       }
       user.deleteUserDetails(rollNumber);
@@ -115,6 +121,7 @@ public class InputOutput {
    *
    * @param user The User object whose data might be saved before exiting.
    */
+  @Override
   public void exit(User user) {
     System.out.println("Do you want to save data to disk (y/n)");
     String input = sc.nextLine();
