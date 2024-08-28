@@ -2,7 +2,7 @@ package assignment.model;
 
 import assignment.config.ItemType;
 
-public abstract class Item {
+public abstract class Item implements ItemInterface {
 
   String name;
   ItemType type;
@@ -40,6 +40,7 @@ public abstract class Item {
 
   public abstract Item calculateFinalPrice();
 
+  @Override
   public Item setName(String name) {
     this.name = name;
     return this;
@@ -47,11 +48,13 @@ public abstract class Item {
 
   public abstract Item setType();
 
+  @Override
   public Item setPrice(int price) {
     this.price = price;
     return this;
   }
 
+  @Override
   public Item setQuantity(int quantity) {
     this.quantity = quantity;
     return this;
@@ -61,26 +64,32 @@ public abstract class Item {
 
   public abstract void setFinalPrice();
 
+  @Override
   public String getName() {
     return name;
   }
 
+  @Override
   public ItemType getType() {
     return type;
   }
 
+  @Override
   public int getPrice() {
     return price;
   }
 
+  @Override
   public int getQuantity() {
     return quantity;
   }
 
+  @Override
   public double getTax() {
     return tax;
   }
 
+  @Override
   public double getFinalPrice() {
     return finalPrice;
   }

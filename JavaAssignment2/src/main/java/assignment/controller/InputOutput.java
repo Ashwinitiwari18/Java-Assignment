@@ -6,7 +6,7 @@ import assignment.model.User;
 import java.util.List;
 import java.util.Scanner;
 
-public class InputOutput {
+public class InputOutput implements InputOutputInterface{
   Scanner sc;
 
   public InputOutput() {
@@ -25,6 +25,7 @@ public class InputOutput {
    *
    * @param user The {@link User} object to which the new student will be added.
    */
+  @Override
   public void addStudent(User user) {
     try {
       InputOutputAddUser addUser = new InputOutputAddUser();
@@ -52,6 +53,7 @@ public class InputOutput {
    *
    * @param user The User object containing the student data to be displayed.
    */
+  @Override
   public void displayUserData(User user) {
     System.out.println("How you want to sort your data\n"
         + "select from name, roll number, age, address");
@@ -90,6 +92,8 @@ public class InputOutput {
    * </p>
    * @param user The User object from which the student data will be deleted
    */
+
+  @Override
   public void deleteUserData(User user) {
     int rollNumber = 0;
     try {
@@ -117,6 +121,7 @@ public class InputOutput {
    *
    * @param user The User object whose data might be saved before exiting.
    */
+  @Override
   public void exit(User user) {
     System.out.println("Do you want to save data to disk (y/n)");
     String input = sc.nextLine();

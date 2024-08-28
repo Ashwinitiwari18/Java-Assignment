@@ -48,7 +48,7 @@ public class Producer implements Runnable {
         if (item != null) {
           System.out.println("item enter");
           items.put(item);
-          Thread.sleep(1000);
+          Thread.sleep(3000);
         }
       }
       items.put(new PoisonPill());

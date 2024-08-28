@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InputOutput {
+public class InputOutput implements InputeOutput {
 
   /**
    * Processes the input arguments to create an Item object.
@@ -30,6 +30,7 @@ public class InputOutput {
    *                            (raw, manufactured, imported).
    *                          - The item type is missing.
    */
+  @Override
   public Item input(String[] arg) {
 
     Map<String, String> isPresent = new HashMap<>();
@@ -100,6 +101,7 @@ public class InputOutput {
    *              Each item's details including name, price, type, quantity, tax, and final price
    *              will be printed.
    */
+  @Override
   public void output(ArrayList<Item> items) {
     System.out.println("Here are your items: ");
     for (Item item : items) {
