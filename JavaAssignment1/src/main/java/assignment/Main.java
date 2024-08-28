@@ -20,6 +20,9 @@ public class Main {
     Scanner sc = new Scanner(System.in);
     do {
       Item item = inOut.input(args);
+      if (args.length > 0) {
+        item = inOut.input(args);
+      }
       if (item != null) {
         items.add(item);
       }
